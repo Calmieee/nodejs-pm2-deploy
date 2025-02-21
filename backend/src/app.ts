@@ -13,17 +13,13 @@ const { PORT = 3000 } = process.env;
 const app = express();
 mongoose.connect(DB_ADDRESS);
 
-const allowedOrigins = ['https://student-sr.nomorepartiesco.ru'];
 // Только для локальных тестов. Не используйте это в продакшене
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  origin: [
+    'https://student-sr.nomorepartiesco.ru',
+    'http://student-sr.nomorepartiesco.ru',
+  ],
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
